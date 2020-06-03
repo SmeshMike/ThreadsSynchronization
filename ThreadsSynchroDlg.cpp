@@ -116,6 +116,7 @@ BOOL CThreadsSynchroDlg::OnInitDialog()
 		SetWindowText(_T("Отправляю"));
 		SetDlgItemTextW(IDC_NUMER, _T("Первичный"));
 		active = true;
+		
 	}
 	else
 	{
@@ -126,13 +127,11 @@ BOOL CThreadsSynchroDlg::OnInitDialog()
 		hThread = CreateThread(NULL, 0, thread, this, 0, &dwThread);
 	}
 	UpdateData(false);
-
 	hObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, 2048, TEXT("File_mapping"));
 	if (hObject != NULL)
 	{
 		lp_BaseAddress = MapViewOfFile(hObject, FILE_MAP_READ | FILE_MAP_WRITE, 0, 0, 0);
-	}
-	
+	}	
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -212,8 +211,9 @@ void CThreadsSynchroDlg::OnEnChangeText()
 	// with the ENM_CHANGE flag ORed into the mask.
 
 	// TODO:  Add your control notification handler code here
-	if (lp_BaseAddress != NULL)
-		GetDlgItem(IDC_TEXT)->GetWindowText((PTSTR)lp_BaseAddress, 2048);
+	if (active)
+		if (lp_BaseAddress != NULL)
+			GetDlgItem(IDC_TEXT)->GetWindowText((PTSTR)lp_BaseAddress, 2048);
 	PulseEvent(event[2]);
 
 }

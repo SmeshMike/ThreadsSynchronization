@@ -38,7 +38,7 @@ public:
 	CEdit textControl;
 	CString text;
 	bool active;
-	HANDLE event[3];
+	HANDLE event[2];
 	HANDLE  hObject;
 	PVOID lp_BaseAddress;
 

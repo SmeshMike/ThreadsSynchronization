@@ -106,8 +106,7 @@ BOOL CThreadsSynchroDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	event[0] = CreateEvent(NULL, TRUE, TRUE, L"FirstStep");
-	event[1] = CreateEvent(NULL, FALSE, FALSE, L"SecondStep");
-	event[2] = CreateEvent(NULL, TRUE, FALSE, L"box");
+	event[1] = CreateEvent(NULL, FALSE, FALSE, L"box");
 
 
 	if (WaitForSingleObject(event[0], 0) == WAIT_OBJECT_0)
@@ -191,7 +190,7 @@ void CThreadsSynchroDlg::OnClose()
 {
 	// TODO: Add your message handler code here and/or call default
 	if (active)
-		SetEvent(event[1]);
+		SetEvent(event[0]);
 	else
 	{
 		TerminateThread(hThread, 0);
@@ -214,6 +213,6 @@ void CThreadsSynchroDlg::OnEnChangeText()
 	if (active)
 		if (lp_BaseAddress != NULL)
 			GetDlgItem(IDC_TEXT)->GetWindowText((PTSTR)lp_BaseAddress, 2048);
-	PulseEvent(event[2]);
+	PulseEvent(event[1]);
 
 }

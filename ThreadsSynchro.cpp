@@ -110,10 +110,10 @@ DWORD WINAPI thread(PVOID t) {
 	CThreadsSynchroDlg* cs = (CThreadsSynchroDlg*)t;
 	while (1)
 	{
-		DWORD dw = WaitForMultipleObjects(3, cs->event, FALSE, INFINITE);
+		DWORD dw = WaitForMultipleObjects(2, cs->event, FALSE, INFINITE);
 		switch (dw - WAIT_OBJECT_0)
 		{
-		case 1:
+		case 0:
 		{
 			cs->SetWindowText(_T("Отправляю"));
 			cs->SetDlgItemTextW(IDC_NUMER, _T("Первичный"));
@@ -122,7 +122,7 @@ DWORD WINAPI thread(PVOID t) {
 			return 1;
 		}
 
-		case 2:
+		case 1:
 		{			
 			if (cs->lp_BaseAddress!= NULL)
 				cs->GetDlgItem(IDC_TEXT)->SetWindowText((PTSTR)cs->lp_BaseAddress);

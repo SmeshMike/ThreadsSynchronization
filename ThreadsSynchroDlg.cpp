@@ -105,8 +105,8 @@ BOOL CThreadsSynchroDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
-	event[0] = CreateEvent(NULL, TRUE, TRUE, L"FirstStep");
-	event[1] = CreateEvent(NULL, FALSE, FALSE, L"box");
+	event[0] = CreateEvent(NULL, FALSE, TRUE, L"FirstStep");
+	event[1] = CreateEvent(NULL, TRUE, FALSE, L"box");
 
 
 	if (WaitForSingleObject(event[0], 0) == WAIT_OBJECT_0)
@@ -211,8 +211,10 @@ void CThreadsSynchroDlg::OnEnChangeText()
 
 	// TODO:  Add your control notification handler code here
 	if (active)
+	{
 		if (lp_BaseAddress != NULL)
 			GetDlgItem(IDC_TEXT)->GetWindowText((PTSTR)lp_BaseAddress, 2048);
-	PulseEvent(event[1]);
+		PulseEvent(event[1]);
+	}
 
 }
